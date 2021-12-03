@@ -5,7 +5,7 @@ defmodule SpaceMission.Schemas.Trip do
 
   schema "trips" do
     field(:mass, :integer)
-    has_many(:stage, Stage)
+    has_many(:stages, Stage)
     timestamps()
   end
 

@@ -37,7 +37,7 @@ defmodule SpaceMission.Stages do
   def list() do
     query =
       from(s in Stage,
-        order_by: [desc: s.id],
+        order_by: [asc: s.id],
         preload: [:planet, :trip]
       )
 

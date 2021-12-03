@@ -8,8 +8,7 @@ defmodule SpaceMission.Trips do
   alias Ecto.Multi
   import Ecto.Query
 
-  #todo:
-  # - build assoc with trip
+  # todo:
   # - check path graph
 
   def changeset(params) do
@@ -38,15 +37,11 @@ defmodule SpaceMission.Trips do
 
       case all do
         true ->
-          {:ok, tl(callback)}
+          {:ok, Enum.map(callback, fn {_, s} -> s end)}
 
         false ->
-          # todo: Return first error we encounter, bad practice
-          Enum.find_value(callback, fn {status, msg} ->
-            if status == :error do
-              msg
-            end
-          end)
+          errs = Enum.filter(callback, fn {status, _} -> status == :error end)
+          {:error, Enum.map(errs, fn {_, e} -> e end)}
       end
     end)
     |> Repo.transaction()
@@ -59,8 +54,10 @@ defmodule SpaceMission.Trips do
 
   def list() do
     query =
-      "trips"
-      |> select([:id, :mass])
+      from(t in Trip,
+        order_by: [desc: t.id],
+        preload: [stages: :planet]
+      )
 
     Repo.all(query)
   end

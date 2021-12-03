@@ -1,4 +1,4 @@
-alias SpaceMission.{Planets, Trips}
+alias SpaceMission.{Computer, Planets, Trips}
 
 planets = [
   %{
@@ -15,7 +15,7 @@ planets = [
   }
 ]
 
-planets = Enum.map(planets, fn p -> Planets.create(p) end)
+planets = planets |> Enum.map(fn p -> Planets.create(p) end)
 
 stages = [
   {:launch, 9.807},
@@ -25,34 +25,20 @@ stages = [
 ]
 
 trips = [
-  {28801,
-   [
-     {:launch, 9.807},
-     {:land, 1.62},
-     {:launch, 1.62},
-     {:land, 9.807}
-   ]}
+  {28801, stages}
 ]
 
-trips =
-  Enum.map(trips, fn t ->
-    Trips.create(t)
+trips = trips |> Enum.map(fn t -> Trips.create(t) end)
+
+trips = Trips.list()
+
+fuels =
+  trips
+  |> Enum.map(fn t ->
+    t.stages
+    |> Enum.map(fn s ->
+      Computer.compute_mass_of_fuel_for_mass(s.type, t.mass, s.planet.gravity)
+    end)
   end)
 
-IO.inspect(trips)
-
-IO.inspect(Trips.list())
-
-#    SpaceMission.load_stages(stages)
-#    |> Enum.map(fn schema ->
-#      IO.inspect(%{mass: mass, stage_id: schema.id})
-#
-#      SpaceMission.create_trip(
-#        %{mass: mass},
-#        schema.id
-#      )
-#    end)
-#  end)
-
-#
-# ass = IO.inspect(trips)
+IO.inspect(fuels)
