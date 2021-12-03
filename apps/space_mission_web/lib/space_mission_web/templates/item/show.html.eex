@@ -1,0 +1,7 @@
+<h1><%= @item.name %></h1>
+
+<ul>
+  <li><strong>Planet: </strong><%= @item.name %></li>
+  <li><strong>Known gravity: </strong><%= @item.gravity %> m/s&#178;</li>
+  <li><strong>Description: </strong><%= @item.description %></li>
+</ul>

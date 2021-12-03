@@ -1,0 +1,8 @@
+alias SpaceMission.{Repo, Trip, Stage}
+trip = %{ship_mass: 28801}
+trip = SpaceMission.insert_trip(trip)
+
+trip = %Trip{ship_mass: 28801}
+trip = Repo.insert!(trip)
+
+post = Ecto.build_assoc(trip, :stages, %{type: "land", destination: "moon"})

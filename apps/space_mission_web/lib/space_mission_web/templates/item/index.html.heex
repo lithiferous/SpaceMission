@@ -1,0 +1,7 @@
+<ul>
+  <%= for item <- @items do %>
+    <li>
+      <strong><%= item.name %></strong>: <%= item.gravity %>
+    </li>
+  <% end %>
+</ul>
