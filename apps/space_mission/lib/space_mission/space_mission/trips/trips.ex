@@ -17,16 +17,16 @@ defmodule SpaceMission.Trips do
   end
 
   def create({mass, stages}) do
-    # Given gravity return planet id from our db as gravity is a fixed measure
     planets = Planets.list()
 
     Multi.new()
     |> Multi.insert(:trips, changeset(%{mass: mass}))
     |> Multi.run(:stages, fn _, %{trips: trip} ->
       callback =
-        Enum.map(stages, fn {type, gravity} ->
+        stages |> Enum.map(fn {type, gravity} ->
+    # Given gravity return planet id from our db as gravity is a fixed measure
           planet_id =
-            Enum.find_value(planets, fn p ->
+            planets |> Enum.find_value(fn p ->
               if p.gravity == gravity, do: p.id
             end)
 
@@ -37,11 +37,11 @@ defmodule SpaceMission.Trips do
 
       case all do
         true ->
-          {:ok, Enum.map(callback, fn {_, s} -> s end)}
+          {:ok, callback |> Enum.map(fn {_, s} -> s end)}
 
         false ->
-          errs = Enum.filter(callback, fn {status, _} -> status == :error end)
-          {:error, Enum.map(errs, fn {_, e} -> e end)}
+          errs = callback |> Enum.filter(fn {status, _} -> status == :error end)
+          {:error, errs |> Enum.map(fn {_, e} -> e end)}
       end
     end)
     |> Repo.transaction()
