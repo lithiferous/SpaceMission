@@ -8,41 +8,24 @@ defmodule SpaceMission.Trips do
   alias Ecto.Multi
   import Ecto.Query
 
-  # todo:
-  # - check path graph
-
   def changeset(params) do
     %Trip{}
     |> Trip.changeset(params)
   end
 
   def create({mass, stages}) do
-    planets = Planets.list()
-
     Multi.new()
     |> Multi.insert(:trips, changeset(%{mass: mass}))
     |> Multi.run(:stages, fn _, %{trips: trip} ->
       callback =
-        stages |> Enum.map(fn {type, gravity} ->
-    # Given gravity return planet id from our db as gravity is a fixed measure
-          planet_id =
-            planets |> Enum.find_value(fn p ->
-              if p.gravity == gravity, do: p.id
-            end)
-
-          Stages.create(%{type: type}, planet_id, trip.id)
+        stages
+        |> Enum.map(fn {type, gravity} ->
+          # Given gravity return planet id from our db as gravity is a fixed measure
+          planet = Planets.get_by(%{gravity: gravity})
+          Stages.create(%{type: type}, planet.id, trip.id)
         end)
 
-      all = Enum.all?(Enum.map(callback, fn {status, _} -> status == :ok end))
-
-      case all do
-        true ->
-          {:ok, callback |> Enum.map(fn {_, s} -> s end)}
-
-        false ->
-          errs = callback |> Enum.filter(fn {status, _} -> status == :error end)
-          {:error, errs |> Enum.map(fn {_, e} -> e end)}
-      end
+      {:ok, callback |> Enum.map(fn {_, s} -> s end)}
     end)
     |> Repo.transaction()
   end

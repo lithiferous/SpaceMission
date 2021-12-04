@@ -39,34 +39,4 @@ defmodule SpaceMission.Computer do
       true -> compute_mass_of_fuel_for_fuel_mass(type, mass, gravity, acc + mass)
     end
   end
-
-  @doc """
-  Checks if space journey is possible in our universe.
-  """
-  def is_path_direct?(stages) do
-    Graph.new()
-    |> SpaceMission.PathCalculator.fill(stages)
-  end
-end
-
-defmodule SpaceMission.PathCalculator do
-  def fill(g, [head, next | tail]) do
-    if head.type == next.type do
-      {:error, "You cannot perform #{head.type} twice, you have enough fuel only for one"}
-    else
-      g
-      |> Graph.add_edge({head.type, head.planet.id}, {next.type, next.planet.id})
-      |> fill(tail)
-    end
-  end
-
-  def fill(g, [next]) do
-    head = hd(Enum.reverse(Graph.vertices(g)))
-
-    g
-    |> Graph.add_edge({head.type, head.planet.id}, {next.type, next.planet.id})
-    |> fill([])
-  end
-
-  def fill(g, []), do: g
 end

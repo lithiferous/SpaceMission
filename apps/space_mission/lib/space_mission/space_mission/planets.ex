@@ -30,4 +30,15 @@ defmodule SpaceMission.Planets do
 
     Repo.all(query)
   end
+
+  def get_by(attrs) do
+    list()
+    |> Enum.find(fn planet ->
+      Map.keys(attrs)
+      |> Enum.all?(fn key ->
+        planet
+        |> Map.get(key) === attrs[key]
+      end)
+    end)
+  end
 end

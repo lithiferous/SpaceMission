@@ -27,8 +27,7 @@ defmodule SpaceMission.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.7.0"},
-      {:postgrex, "~> 0.15.0"},
-      {:libgraph, "~> 0.7"}
+      {:postgrex, "~> 0.15.0"}
     ]
   end
 end
