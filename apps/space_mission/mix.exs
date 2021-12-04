@@ -11,7 +11,9 @@ defmodule SpaceMission.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "SpaceMission",
+      docs: [main: "SpaceMission", extras: ["README.md"]]
     ]
   end
 
@@ -27,7 +29,9 @@ defmodule SpaceMission.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.7.0"},
-      {:postgrex, "~> 0.15.0"}
+      {:postgrex, "~> 0.15.0"},
+      {:libgraph, "~> 0.7"},
+      {:ex_doc, "~>0.24", only: :dev, runtime: false}
     ]
   end
 end

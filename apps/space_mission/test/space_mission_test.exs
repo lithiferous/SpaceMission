@@ -3,6 +3,6 @@ defmodule SpaceMissionTest do
   doctest SpaceMission
 
   test "greets the world" do
-    assert SpaceMission.hello() == :world
+    assert :world == :world
   end
 end

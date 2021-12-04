@@ -8,6 +8,7 @@ config :space_mission, SpaceMission.Repo,
 
 config :space_mission, ecto_repos: [SpaceMission.Repo]
 
+
 config :space_mission_web,
   generators: [context_app: false]
 

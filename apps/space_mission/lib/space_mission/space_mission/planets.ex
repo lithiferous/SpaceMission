@@ -41,4 +41,8 @@ defmodule SpaceMission.Planets do
       end)
     end)
   end
+
+  def get(id) do
+    Planet |> Repo.get(id)
+  end
 end

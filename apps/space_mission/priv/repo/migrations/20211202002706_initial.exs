@@ -23,6 +23,6 @@ defmodule SpaceMission.Repo.Migrations.Initial do
       timestamps()
     end
 
-    create(index("stages", [:inserted_at, :type, :planet_id], unique: true))
+    # create(index("stages", [:inserted_at, :type, :planet_id], unique: true))
   end
 end
