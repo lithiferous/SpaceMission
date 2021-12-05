@@ -10,6 +10,7 @@ I came up with three entities as follows:
 * *Planet* -> _entity for spatial object we can travel to_
 
 Their relationship is best described with a snapshot of the db:<br />
+<br />
 ![alt text](../../resources/db_outlay.png "Entity relations")
 
 To have a predictable behaviour, limitations were introduced:
