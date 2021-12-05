@@ -1,6 +1,6 @@
 # RocketLauncher
 
-This project is a study task for elixir, description can be found at: [file](../resources/Backend%20TT.pdf). For code readability project uses Ecto along with Postgres.
+This project is a study task for elixir, description can be found [here](./resources/Backend%20TT.pdf). For code readability project uses Ecto along with Postgres.
 As assignment is mainly concerned with backend, point of most interest is therefore [this part](https://github.com/lithiferous/SpaceMission/tree/master/apps/space_mission) of the application.
 
 ## Installation
