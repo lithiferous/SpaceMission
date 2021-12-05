@@ -1,7 +1,7 @@
 # SpaceMission
-![alt text](../../resources/logo.png "Space Mission")<br />
-
-
+<p align="center">
+  <img src="https://github.com/lithiferous/SpaceMission/tree/master/resources/logo.png" width="100"><br />
+</p>
 ## Background
 In order to store input information of the form:
 ```elixir
