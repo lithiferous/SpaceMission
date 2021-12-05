@@ -10,14 +10,15 @@ I came up with three entities as follows:
 * *Planet* -> _entity for spatial object we can travel to_
 
 Their relationship is best described with a snapshot of the db:<br />
-<br />
+
+
 ![alt text](../../resources/db_outlay.png "Entity relations")
 
 To have a predictable behaviour, limitations were introduced:
 * Having a predefined set of planets, that abide laws of the universe ([seeds](./priv/repo/seeds.exs))
 * SpaceMission is not valid under conditions:
-...* we land on one planet and launch from another one
-...* we land or launch multiple times in a row
+  * we land on one planet and launch from another one
+  * land or launch multiple times in a row
 
 ## Requirements
 * *Postgres database*
