@@ -1,0 +1,7 @@
+<ul>
+  <%= for planet <- @planets do %>
+    <li>
+      <strong><%= planet.name %></strong>: <%= planet.gravity %>
+    </li>
+  <% end %>
+</ul>

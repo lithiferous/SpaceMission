@@ -1,2 +1,8 @@
-maybe some displayer for phoenix?
-also live session calculations are an option
+Agenda:
+  fix phoenix:
+    - planets
+    - trips
+    - stages
+  put the thing in docker
+  live session calculator
+  ~~cut image~~

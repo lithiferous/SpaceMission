@@ -1,0 +1,7 @@
+<ul>
+  <%= for trip <- @trips do %>
+    <li>
+      <strong><%= link(trip.mass, to: Routes.item_path(@conn, :show, trip)) %></strong>
+    </li>
+  <% end %>
+</ul>

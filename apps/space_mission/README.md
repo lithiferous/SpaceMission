@@ -1,4 +1,7 @@
 # SpaceMission
+![alt text](../../resources/logo.png "Space Mission")<br />
+
+
 ## Background
 In order to store input information of the form:
 ```elixir
@@ -16,7 +19,7 @@ Their relationship is best described with a snapshot of the db:<br />
 
 To have a predictable behaviour, limitations were introduced:
 * Having a predefined set of planets, that abide laws of the universe ([seeds](./priv/repo/seeds.exs))
-* SpaceMission is not valid under conditions:
+* Space mission is not valid under conditions:
   * we land on one planet and launch from another one
   * land or launch multiple times in a row
 
@@ -33,9 +36,9 @@ make db_migrate
 ## Running
 To run seeds file (will fill up the databse with task entries
 ```bash
-make db_update
+cd ../.. && make db_update
 ```
-or with tests
+or simply with tests
 ```bash
 mix test
 ```
