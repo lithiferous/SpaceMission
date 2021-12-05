@@ -40,4 +40,12 @@ defmodule SpaceMission.Computer do
       true -> compute_mass_of_fuel_for_fuel_mass(mass, type, gravity, acc + mass)
     end
   end
+
+  @doc """
+  Computes fuel for both ship equipment and fuel mass required for mission.
+  """
+  def compute_fuel_mass(mass, type, gravity) do
+    ship_mass = compute_mass_of_fuel_for_mass(mass, type, gravity)
+    compute_mass_of_fuel_for_fuel_mass(ship_mass, type, gravity, ship_mass)
+  end
 end

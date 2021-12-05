@@ -22,6 +22,8 @@ defmodule SpaceMission.PathFinder do
   end
 
   defp fill(g, [head, next | tail]) do
+    verts = g |> Graph.vertices()
+
     cond do
       # perform a check that next element is not the same; It would mean we perform two consequent launches/lands which is impossible
       head.type == next.type ->
@@ -37,55 +39,22 @@ defmodule SpaceMission.PathFinder do
              "You cannot perform landing on #{head.planet.name} and launch from #{next.planet.name}. In case you inveneted a teleport, please, contact us @nssc-contactcenter@nasa.gov"}
 
           false ->
-            g
-            |> Graph.add_edge(
-              {head.type, head.planet.id},
-              {next.type, next.planet.id}
-            )
-            |> fill([next | tail])
+            case tail != [] and tail != nil do
+              true ->
+                g
+                |> Graph.add_edge(
+                  {head.type, head.planet.id},
+                  {next.type, next.planet.id}
+                )
+                |> fill([next | tail])
+
+              false ->
+                {:ok, nil}
+            end
         end
 
       true ->
         {:error, "Passed object should be of the form `[%SpaceMission.Schemas.Stage{}]`"}
     end
   end
-
-  defp fill(g, [next]) do
-    # take last vertice in the graph as head
-    {head_type, head_planet_id} =
-      g
-      |> Graph.vertices()
-      |> Enum.reverse()
-      |> hd()
-
-    head_planet_name = Planets.get(head_planet_id)
-
-    cond do
-      # means we have a single element list, which is an appropriate path. I would stay on Moon too, for that matter
-      head_type == nil ->
-        {:ok, nil}
-
-      head_type == next.type ->
-        {:error,
-         "You cannot perform another #{next.type} twice, you have enough fuel only to do #{head_type} for #{head_planet_name}"}
-
-      head_type != next.type ->
-        case head_type == :land and
-               head_planet_id != next.planet.id do
-          true ->
-            {:error,
-             "You cannot perform landing on #{head_planet_name} and launch from #{next.planet.name}. In case you inveneted a teleport, please, contact us @nssc-contactcenter@nasa.gov"}
-
-          false ->
-            g
-            |> Graph.add_edge(
-              {head_type, head_planet_id},
-              {next.type, next.planet.id}
-            )
-            |> fill([])
-        end
-    end
-  end
-
-  defp fill(_g, []), do: {:ok, nil}
 end

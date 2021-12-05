@@ -11,14 +11,18 @@ defmodule SpaceMission do
 
     trip = Trips.get(Trip, trip.id)
 
-    trip.stages
-    |> Enum.map(fn stage ->
-      Computer.compute_mass_of_fuel_for_mass(
-        trip.mass,
-        stage.type,
-        stage.planet.gravity
-      )
-    end)
-    |> Enum.sum()
+    fuels =
+      trip.stages
+      |> Enum.map(fn stage ->
+        Computer.compute_fuel_mass(
+          trip.mass,
+          stage.type,
+          stage.planet.gravity
+        )
+      end)
+
+    IO.inspect(fuels)
+
+    fuels |> Enum.sum()
   end
 end
