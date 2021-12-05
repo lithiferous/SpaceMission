@@ -22,8 +22,6 @@ defmodule SpaceMission.PathFinder do
   end
 
   defp fill(g, [head, next | tail]) do
-    verts = g |> Graph.vertices()
-
     cond do
       # perform a check that next element is not the same; It would mean we perform two consequent launches/lands which is impossible
       head.type == next.type ->
@@ -31,7 +29,7 @@ defmodule SpaceMission.PathFinder do
          "You cannot perform another #{next.type} twice, you have enough fuel only to do #{head.type} for #{head.planet.name}"}
 
       head.type != next.type ->
-        # perform a check that after landing on one planet we do not launch from another oneA
+        # perform a check that after landing on one planet we do not launch from another one
         case head.type == :land and
                head.planet.id != next.planet.id do
           true ->
