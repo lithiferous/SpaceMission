@@ -62,4 +62,34 @@ defmodule SpaceMissionTest do
 
     assert fuel_mass == 121_785
   end
+
+  test "Landing on one planet, launching from the other" do
+    stages = [
+      {:launch, 9.807},
+      {:land, 3.711},
+      {:launch, 9.807},
+      {:land, 9.807}
+    ]
+
+    try do
+      {status, _} = SpaceMission.compute_fuel({14606, stages})
+    rescue
+      e in RuntimeError -> true
+    end
+  end
+
+  test "Multiple launches" do
+    stages = [
+      {:launch, 9.807},
+      {:launch, 3.711},
+      {:launch, 9.807},
+      {:land, 9.807}
+    ]
+
+    try do
+      {status, _} = SpaceMission.compute_fuel({14606, stages})
+    rescue
+      e in RuntimeError -> true
+    end
+  end
 end
