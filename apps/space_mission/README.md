@@ -9,7 +9,7 @@ I came up with three entities as follows:
 * *Stage* -> _part of the mission, e.g. landing on Moon_
 * *Planet* -> _entity for spatial object we can travel to_
 
-Their relationship is best described with a snapshot of the db:
+Their relationship is best described with a snapshot of the db:<br />
 ![alt text](../../resources/db_outlay.png "Entity relations")
 
 To have a predictable behaviour, limitations were introduced:
