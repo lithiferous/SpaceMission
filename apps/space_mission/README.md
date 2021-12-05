@@ -1,7 +1,8 @@
 # SpaceMission
-<p align="center">
-  <img src="https://github.com/lithiferous/SpaceMission/tree/master/resources/logo.png" width="100">
-</p><br />
+<div align="center">
+  <img src="https://github.com/lithiferous/SpaceMission/tree/master/resources/logo.png" width="500">
+</div>
+<br />
 ## Background
 In order to store input information of the form:
 ```elixir
